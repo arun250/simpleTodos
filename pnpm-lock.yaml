@@ -6,6 +6,7 @@ dependencies:
   create-react-app: 5.1.0
   react: 17.0.1
   react-dom: 17.0.1_react@17.0.1
+  uuid: 7.0.3
 devDependencies:
   eslint-config-airbnb: 18.2.1
   eslint-config-prettier: 8.1.0
@@ -14464,6 +14465,11 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
+  /uuid/7.0.3:
+    dev: false
+    hasBin: true
+    resolution:
+      integrity: sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==
   /uuid/8.3.2:
     dev: true
     hasBin: true
@@ -15147,3 +15153,4 @@ specifiers:
   react: 17.0.1
   react-dom: 17.0.1
   react-scripts: 4.0.3
+  uuid: '7'

@@ -36,3 +36,13 @@ body {
   border: 1px solid #ff0b37;
   padding: 10px 10px 10px 10px;
 }
+
+.title {
+  font-size: 18px;
+  font-family: 'Roboto';
+}
+.isActive {
+  text-decoration: line-through;
+  font-size: 18px;
+  font-family: 'Roboto';
+}

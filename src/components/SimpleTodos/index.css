@@ -30,3 +30,21 @@ body {
 .listitems {
   list-style-type: none;
 }
+
+.textUserInput {
+  height: 40px;
+  width: 200px;
+  outline: none;
+  font-size: 18px;
+}
+
+.add-button {
+  margin-left: 10px;
+  border: none;
+  background-color: rgb(206, 106, 7);
+  color: white;
+  font-size: 16px;
+  padding: 10px 15px 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+}

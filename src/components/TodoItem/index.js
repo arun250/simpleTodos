@@ -1,22 +1,70 @@
 // Write your code here
-import {Component} from 'react'
+
+import {useState} from 'react'
+
 import './index.css'
 
-class TodoItem extends Component {
-  render() {
-    const {initialTodosList, deleteUser} = this.props
-    const {id, title} = initialTodosList
-    return (
-      <li>
-        <div className="todocontainer">
-          <p>{title}</p>
-          <button className="deletebutton" onClick={() => deleteUser(id)}>
-            Delete
-          </button>
-        </div>
-      </li>
-    )
+const TodoItem = props => {
+  const {
+    initialTodosList,
+    deleteUser,
+    editUser,
+    isEditButtonClicked,
+    updateTodoTitle,
+  } = props
+  const {id, title} = initialTodosList
+  const [editedTitle, setEditedTitle] = useState(title)
+  const [isChecked, setCheck] = useState(false)
+
+  const onClickCheckInput = event => {
+    setCheck(event.target.checked)
   }
+  const isCheckedTrue = isChecked ? 'isActive' : ''
+
+  return (
+    <li>
+      <div className="todocontainer">
+        {isEditButtonClicked ? (
+          <>
+            <input
+              type="text"
+              value={editedTitle}
+              onChange={e => setEditedTitle(e.target.value)}
+              className="editTitle"
+            />
+            <button
+              className="deletebutton"
+              type="button"
+              onClick={() => updateTodoTitle(id, editedTitle)}
+            >
+              Save
+            </button>
+          </>
+        ) : (
+          <>
+            <input
+              className="check-box"
+              checked={isChecked}
+              onChange={onClickCheckInput}
+              type="checkbox"
+              id={id}
+            />
+            <p className={`title ${isCheckedTrue}`}>{title}</p>
+            <button
+              className="deletebutton"
+              onClick={() => editUser(id)}
+              type="button"
+            >
+              Edit
+            </button>
+          </>
+        )}
+        <button className="deletebutton" onClick={() => deleteUser(id)}>
+          Delete
+        </button>
+      </div>
+    </li>
+  )
 }
 
 export default TodoItem

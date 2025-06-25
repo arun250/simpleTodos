@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import {v4 as uuidv4} from 'uuid'
 import TodoItem from '../TodoItem/index'
 import './index.css'
 
@@ -40,28 +41,96 @@ const initialTodosList = [
 // Write your code here
 
 class SimpleTodos extends Component {
-  state = {initialTodosLists: initialTodosList}
+  state = {
+    initialTodosLists: initialTodosList,
+    title: '',
+
+    editingTodoId: null,
+  }
 
   onDelete = id => {
     const {initialTodosLists} = this.state
     const resultData = initialTodosLists.filter(each => each.id !== id)
-
     this.setState({initialTodosLists: resultData})
   }
 
+  editUser = id => {
+    this.setState({editingTodoId: id})
+  }
+
+  onClickAddTodo = () => {
+    const {title} = this.state
+    if (title.trim() === '') return
+
+    const match = title.trim().match(/^(.*?)(?:\s+(\d+))?$/)
+    const baseText = match[1].trim()
+    const number = parseInt(match[2], 10)
+
+    if (number) {
+      const newTodos = Array.from({length: number}, (_, i) => ({
+        id: uuidv4(),
+        title: `${baseText}`,
+      }))
+      this.setState(prevState => ({
+        initialTodosLists: [...prevState.initialTodosLists, ...newTodos],
+        title: '',
+      }))
+    } else {
+      // Add single todo
+      const newTodo = {
+        id: uuidv4(),
+        title: title.trim(),
+      }
+      this.setState(prevState => ({
+        initialTodosLists: [...prevState.initialTodosLists, newTodo],
+        title: '',
+      }))
+    }
+  }
+
+  updateTodoTitle = (id, newTitle) => {
+    this.setState(prevState => ({
+      initialTodosLists: prevState.initialTodosLists.map(todo =>
+        todo.id === id ? {...todo, title: newTitle} : todo,
+      ),
+
+      editingTodoId: null,
+    }))
+  }
+
+  onChangeUserInput = event => {
+    this.setState({title: event.target.value})
+  }
+
   render() {
-    const {initialTodosLists} = this.state
+    const {initialTodosLists, title, editingTodoId} = this.state
 
     return (
       <div className="bg-container">
         <div className="card-container">
           <h1>Simple Todos</h1>
+          <div>
+            <input
+              type="text"
+              className="textUserInput"
+              value={title}
+              placeholder="Enter your todo Item"
+              onChange={this.onChangeUserInput}
+            />
+            <button className="add-button" onClick={this.onClickAddTodo}>
+              Add
+            </button>
+          </div>
+
           <ul className="listitems">
             {initialTodosLists.map(eachItem => (
               <TodoItem
                 key={eachItem.id}
                 initialTodosList={eachItem}
                 deleteUser={this.onDelete}
+                editUser={this.editUser}
+                isEditButtonClicked={editingTodoId === eachItem.id}
+                updateTodoTitle={this.updateTodoTitle}
               />
             ))}
           </ul>
