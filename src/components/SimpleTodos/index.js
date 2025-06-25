@@ -44,7 +44,7 @@ class SimpleTodos extends Component {
   state = {
     initialTodosLists: initialTodosList,
     title: '',
-
+    isEditButtonClicked: false,
     editingTodoId: null,
   }
 
@@ -55,7 +55,7 @@ class SimpleTodos extends Component {
   }
 
   editUser = id => {
-    this.setState({editingTodoId: id})
+    this.setState({editingTodoId: id, isEditButtonClicked: true})
   }
 
   onClickAddTodo = () => {
@@ -68,7 +68,7 @@ class SimpleTodos extends Component {
 
     if (number) {
       const newTodos = Array.from({length: number}, (_, i) => ({
-        id: uuidv4(),
+        id: Date.now() + i,
         title: `${baseText}`,
       }))
       this.setState(prevState => ({
@@ -78,7 +78,7 @@ class SimpleTodos extends Component {
     } else {
       // Add single todo
       const newTodo = {
-        id: uuidv4(),
+        id: Date.now(),
         title: title.trim(),
       }
       this.setState(prevState => ({
@@ -103,7 +103,8 @@ class SimpleTodos extends Component {
   }
 
   render() {
-    const {initialTodosLists, title, editingTodoId} = this.state
+    const {initialTodosLists, title, editingTodoId, isEditButtonClicked} =
+      this.state
 
     return (
       <div className="bg-container">
@@ -129,7 +130,7 @@ class SimpleTodos extends Component {
                 initialTodosList={eachItem}
                 deleteUser={this.onDelete}
                 editUser={this.editUser}
-                isEditButtonClicked={editingTodoId === eachItem.id}
+                isEditButtonClicked={isEditButtonClicked}
                 updateTodoTitle={this.updateTodoTitle}
               />
             ))}
