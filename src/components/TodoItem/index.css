@@ -1,0 +1,38 @@
+/* Write your CSS here */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+}
+
+.bg-container {
+  background-color: #ffc2a0;
+  height: 100vh;
+  border: 1px solid #ffc2a0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-container {
+  background-color: white;
+  width: 400px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 20px;
+}
+.todocontainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.deletebutton {
+  background-color: transparent;
+  color: #ff0b37;
+  border: 1px solid #ff0b37;
+  padding: 10px 10px 10px 10px;
+}
